@@ -1,8 +1,9 @@
 import { Duration } from '@/lib/duration'
-import { LLMModelConfig, LLMModels } from '@/lib/models'
+import { getModelClient, LLMModelConfig, LLMModels } from '@/lib/models'
+import { toPropmpt } from '@/lib/prompt'
 import ratelimit from '@/lib/ratelimit'
 import { Templates } from '@/lib/templates'
-import { CoreMessage } from 'ai'
+import { CoreMessage, LanguageModel, streamObject } from 'ai'
 
 const ratelimit_max_request = process.env.RATE_LIMIT_MAX_REQUEST
   ? parseInt(process.env.RATE_LIMIT_MAX_REQUEST)
@@ -42,4 +43,14 @@ export async function POST(req: Request) {
   }
 
   const { model: modelNameString, apiKey: modelApiKey, ...modelParams } = config
+
+  const modelClient = getModelClient(model, config)
+
+  const stream = await streamObject({
+    model: modelClient as LanguageModel,
+    schema,
+    system: toPropmpt(template),
+    messages,
+    mode: 
+  })
 }
