@@ -60,3 +60,14 @@ export function getModelClient(model: LLMModels, config: LLMModelConfig) {
 
   return createClient()
 }
+
+export function getDefaultMode(model: LLMModels) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id: modelNameString, providerId } = model
+
+  if (providerId === 'fireworks') {
+    return 'json'
+  }
+
+  return 'auto'
+}

@@ -1,4 +1,4 @@
-import { LLMModels } from '@/lib/models'
+import { LLMModelConfig, LLMModels } from '@/lib/models'
 import {
   Select,
   SelectContent,
@@ -9,20 +9,32 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import Image from 'next/image'
-import { Templates } from '@/lib/templates'
+import { TemplateId, Templates } from '@/lib/templates'
 import { Sparkles } from 'lucide-react'
 
 export function ChatPicker({
   models,
   templates,
+  selectedTemplate,
+  onSelectedTemplateChange,
+  languageModel,
+  onLanguageModelChange,
 }: {
   models: LLMModels[]
   templates: Templates
+  selectedTemplate: 'auto' | TemplateId
+  onSelectedTemplateChange: (template: 'auto' | TemplateId) => void
+  languageModel: LLMModelConfig
+  onLanguageModelChange: (config: LLMModelConfig) => void
 }) {
   return (
     <div className="flex items-center space-x-2">
       <div className="flex flex-col">
-        <Select name="template" defaultValue={''} onValueChange={() => {}}>
+        <Select
+          name="template"
+          defaultValue={selectedTemplate}
+          onValueChange={onSelectedTemplateChange}
+        >
           <SelectTrigger className="whitespace-nowrap border-none shadow-none py-0 px-0 h-6 text-xs focus:ring-0">
             <SelectValue placeholder="Select a persona" />
             <SelectContent side="top">
@@ -59,7 +71,11 @@ export function ChatPicker({
       </div>
 
       <div className="flex flex-col">
-        <Select name="languageModel" defaultValue={''} onValueChange={() => {}}>
+        <Select
+          name="languageModel"
+          defaultValue={languageModel.model}
+          onValueChange={(e) => onLanguageModelChange({ model: e })}
+        >
           <SelectTrigger className="whitespace-nowrap border-none shadow-none py-0 px-0 h-6 text-xs focus:ring-0">
             <SelectValue placeholder="Language model" />
             <SelectContent>

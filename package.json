@@ -14,7 +14,7 @@
     "@ai-sdk/mistral": "^0.0.44",
     "@ai-sdk/openai": "^0.0.68",
     "@e2b/cli": "^1.0.4",
-    "@e2b/code-interpreter": "^1.0.2",
+    "@e2b/code-interpreter": "0.0.9-beta.3",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
